@@ -99,4 +99,5 @@ info.update = function (props) {
         '<b>' + props.ENAME + ' (' + props.CACODE + ')</b><br />' + props.POPULATION
         : 'Hover over a beighbourhood');
 };
+
 info.addTo(map);
