@@ -78,7 +78,7 @@ info.onAdd = function (map) {
 /* method that we will use to update the control based on feature properties passed */
 info.update = function (props) {
     this._div.innerHTML = '<h4>Tai Po District Population: 296,853</h4>' +  (props ?
-        '<b>' + props.ENAME + '</b><br />' + props.POPULATION
+        '<b>' + props.ENAME + '(' + props.CACODE + ')</b><br />' + props.POPULATION
         : 'Hover over a beighbourhood');
 };
 
