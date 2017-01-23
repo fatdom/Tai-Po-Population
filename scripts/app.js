@@ -1,24 +1,27 @@
+/* Variables */
 var map = new L.Map('map');
-
 var osmbw = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
 	maxZoom: 16,
 	minZoom: 11,
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="https://github.com/2blam/HK-geojson/">HK GeoJSON</a>, <a href="http://www.census2011.gov.hk/en/district-profiles/tai-po.html">2011 Population Census</a>'
 });
-
 var geojson;
+var info = L.control();
 
-/* Determine fill colour for area, used by style(feature) */
+/* Functions */
+/* Determine fill colour for area, used by style(feature) 
 function getColour(population) {
 	return population > 18000 ? '#f03b20' :
         	population > 16000 ? '#feb24c' :
            		    '#ffeda0' ;
 }
+*/
 
 /* Determine style for area */
 function style(feature) {
     return {
-        fillColor: getColour(feature.properties.POPULATION),
+        //fillColor: getColour(feature.properties.POPULATION),
+	fillColor: "#ffeda0",
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -41,11 +44,14 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
+	
+    info.update(layer.feature.properties);
 }
 
 /* mouseout function, used by onEachFeature */
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
+    info.update();
 }
 
 /* on click zoom to function, used by onEachFeature */
@@ -62,7 +68,21 @@ function onEachFeature(feature, layer) {
     });
 }
 
+/* create a div with a class "info" */
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); 
+    this.update();
+    return this._div;
+};
 
+/* method that we will use to update the control based on feature properties passed */
+info.update = function (props) {
+    this._div.innerHTML = '<h4>Tai Po District Population: 296,853</h4>' +  (props ?
+        '<b>' + props.ENAME + '</b><br />' + props.POPULATION
+        : 'Hover over a beighbourhood');
+};
+
+/* START */
 map.setView([22.451203, 114.169144], 14);
 map.addLayer(osmbw);
 
@@ -72,4 +92,4 @@ map.on('click', function(e){
 
 geojson = L.geoJson(neighbourhoods, {style: style, onEachFeature: onEachFeature}).addTo(map);
 
-
+info.addTo(map);
