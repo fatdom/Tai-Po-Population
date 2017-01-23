@@ -65,20 +65,6 @@ function onEachFeature(feature, layer) {
     });
 }
 
-/* create a div with a class "info" */
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); 
-    this.update();
-    return this._div;
-};
-
-/* method that we will use to update the control based on feature properties passed */
-info.update = function (props) {
-    this._div.innerHTML = '<h4>Tai Po District Population: 296,853</h4>' +  (props ?
-        '<b>' + props.ENAME + ' (' + props.CACODE + ')</b><br />' + props.POPULATION
-        : 'Hover over a beighbourhood');
-};
-
 /* START */
 map = new L.Map('map')
 osmbw = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
@@ -97,5 +83,20 @@ map.on('click', function(e){
 
 geojson = L.geoJson(neighbourhoods, {style: style, onEachFeature: onEachFeature}).addTo(map);
 
+
 info = L.control();
+
+/* create a div with a class "info" */
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); 
+    this.update();
+    return this._div;
+};
+
+/* method that we will use to update the control based on feature properties passed */
+info.update = function (props) {
+    this._div.innerHTML = '<h4>Tai Po District Population: 296,853</h4>' +  (props ?
+        '<b>' + props.ENAME + ' (' + props.CACODE + ')</b><br />' + props.POPULATION
+        : 'Hover over a beighbourhood');
+};
 info.addTo(map);
