@@ -1,7 +1,7 @@
 function getColour(population) {
 	return d > 18000 ? '#f03b20' :
         	d > 16000 ? '#feb24c' :
-           	d > 14000  ? '#ffeda0' ;
+           		    '#ffeda0' ;
 }
 
 function style(feature) {
