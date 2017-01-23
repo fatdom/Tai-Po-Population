@@ -1,6 +1,6 @@
 function getColour(population) {
-	return d > 18000 ? '#f03b20' :
-        	d > 16000 ? '#feb24c' :
+	return population > 18000 ? '#f03b20' :
+        	population > 16000 ? '#feb24c' :
            		    '#ffeda0' ;
 }
 
