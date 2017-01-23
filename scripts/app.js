@@ -6,7 +6,7 @@ function getColour(population) {
 
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.POPULATION),
+        fillColor: getColour(feature.properties.POPULATION),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -19,6 +19,7 @@ var map = new L.Map('map');
 
 var osmbw = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
 	maxZoom: 16,
+	minZoom: 11,
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="https://github.com/2blam/HK-geojson/">HK GeoJSON</a>, <a href="http://www.census2011.gov.hk/en/district-profiles/tai-po.html">2011 Population Census</a>'
 });
 
